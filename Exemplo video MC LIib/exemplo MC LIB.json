@@ -1,0 +1,152 @@
+[
+    {
+        "id": "06a6c6fc6ba2b3e4",
+        "type": "mindconnect",
+        "z": "65606dc83fa41618",
+        "name": "",
+        "configtype": "SHARED_SECRET",
+        "agentconfig": "",
+        "privatekey": "",
+        "model": "",
+        "validate": true,
+        "validateevent": true,
+        "chunk": false,
+        "disablekeepalive": false,
+        "emitcontrol": false,
+        "datalakeonly": false,
+        "supressverbosity": false,
+        "retry": 3,
+        "parallel": 1,
+        "asyncduration": 10,
+        "x": 710,
+        "y": 320,
+        "wires": [
+            [
+                "9b65d87c10c25a6b"
+            ]
+        ]
+    },
+    {
+        "id": "558109a9cd414643",
+        "type": "function",
+        "z": "65606dc83fa41618",
+        "name": "function 52",
+        "func": "\n// take a look at the flow examples at https://playground.mindconnect.rocks\n//\n// - MindSphere expects all values to be encoded as strings\n// - Integers must not have any decimal places\n// - It is a good practice to use javascript literal notation\n// \n// * Examples: \n// \n//   - Random value between 0 and 100: `${Math.random()*100}` \n//   - Variable (HUMIDITY) from input node : `${msg.payload.HUMIDITY}` \n//   - Variable (SPEED) from input node with 0 as default: `${msg.payload.SPEED || 0}`\n\nconst values = [\n    {\n        \"dataPointId\": \"DP-status_maq\",\n        \"qualityCode\": \"0\",\n        \"value\": `${msg.status_maq}` \n    },\n    {\n        \"dataPointId\": \"DP-onlineStatus\",\n        \"qualityCode\": \"0\",\n        \"value\": \"true\"\n    }\n];\nmsg._time = new Date();\nmsg.payload = values;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 280,
+        "wires": [
+            [
+                "06a6c6fc6ba2b3e4"
+            ]
+        ]
+    },
+    {
+        "id": "c655ac285ebeba9c",
+        "type": "inject",
+        "z": "65606dc83fa41618",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "status_maq",
+                "v": "20",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 280,
+        "wires": [
+            [
+                "558109a9cd414643"
+            ]
+        ]
+    },
+    {
+        "id": "9b65d87c10c25a6b",
+        "type": "debug",
+        "z": "65606dc83fa41618",
+        "name": "debug 59",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "11590f625e3d763f",
+        "type": "inject",
+        "z": "65606dc83fa41618",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "volt",
+                "v": "1000",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 360,
+        "wires": [
+            [
+                "156010299e20e61f"
+            ]
+        ]
+    },
+    {
+        "id": "156010299e20e61f",
+        "type": "function",
+        "z": "65606dc83fa41618",
+        "name": "function 53",
+        "func": "\n// take a look at the flow examples at https://playground.mindconnect.rocks\n//\n// - MindSphere expects all values to be encoded as strings\n// - Integers must not have any decimal places\n// - It is a good practice to use javascript literal notation\n// \n// * Examples: \n// \n//   - Random value between 0 and 100: `${Math.random()*100}` \n//   - Variable (HUMIDITY) from input node : `${msg.payload.HUMIDITY}` \n//   - Variable (SPEED) from input node with 0 as default: `${msg.payload.SPEED || 0}`\n\nconst values = [\n    {\n        \"dataPointId\": \"DP-volt\",\n        \"qualityCode\": \"0\",\n        \"value\": `${msg.volt}`\n    },\n    {\n        \"dataPointId\": \"DP-onlineStatus\",\n        \"qualityCode\": \"0\",\n        \"value\": \"true\"\n    }\n];\nmsg._time = new Date();\nmsg.payload = values;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "06a6c6fc6ba2b3e4"
+            ]
+        ]
+    }
+]
