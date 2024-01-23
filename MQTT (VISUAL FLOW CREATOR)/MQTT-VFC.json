@@ -1,0 +1,136 @@
+[
+    {
+        "id": "826008df6fbb7d78",
+        "type": "inject",
+        "z": "9b6405ebaf43e8e4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "f2db830c78f46b2d"
+            ]
+        ]
+    },
+    {
+        "id": "f2db830c78f46b2d",
+        "type": "function",
+        "z": "9b6405ebaf43e8e4",
+        "name": "function 1",
+        "func": "const data = msg.payload\n\nconst values = [\n    {\n        \"dataPointId\": \"DP-serialNumber\",\n        \"qualityCode\": \"0\",\n        \"value\": `${data.serialNumber}`\n    },\n    {\n        \"dataPointId\": \"DP-headerId\",\n        \"qualityCode\": \"0\",\n        \"value\": `${data.headerId}`\n    },\n    {\n        \"dataPointId\": \"DP-connectionState\",\n        \"qualityCode\": \"0\",\n        \"value\": `${data.connectionState}`\n    },\n    {\n        \"dataPointId\": \"DP-onlineStatus\",\n        \"qualityCode\": \"0\",\n        \"value\": \"true\"\n    }\n];\nmsg._time = new Date();\nmsg.payload = values;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "f11da62005b52d84",
+                "44f719f914e285e8"
+            ]
+        ]
+    },
+    {
+        "id": "f11da62005b52d84",
+        "type": "mqtt out",
+        "z": "9b6405ebaf43e8e4",
+        "name": "",
+        "topic": "vfc/debr/augusto/P/",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "dd53f66b653224ee",
+        "x": 690,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "13808b6b8e8ef8d7",
+        "type": "mqtt in",
+        "z": "9b6405ebaf43e8e4",
+        "name": "",
+        "topic": "vfc/debr/augusto/P/#",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "dd53f66b653224ee",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "42031602e6ba5c86",
+                "efc68509eb791fbc"
+            ]
+        ]
+    },
+    {
+        "id": "efc68509eb791fbc",
+        "type": "debug",
+        "z": "9b6405ebaf43e8e4",
+        "name": "DEBUG MQTT",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 120,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "dd53f66b653224ee",
+        "type": "mqtt-broker",
+        "name": "MQTT MINDSPHERE VFC",
+        "broker": "vfc-mqtt-prod.starter.eu-central.external.mindsphere.io",
+        "port": "8883",
+        "tls": "",
+        "clientid": "<tenant>/<user-name>",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "3",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
