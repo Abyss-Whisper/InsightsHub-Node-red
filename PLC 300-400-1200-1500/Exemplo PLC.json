@@ -1,0 +1,117 @@
+[
+    {
+        "id": "898223826fbc3887",
+        "type": "s7 in",
+        "z": "9b6405ebaf43e8e4",
+        "endpoint": "6e90c1391645bf5d",
+        "mode": "all",
+        "variable": "",
+        "diff": true,
+        "name": "",
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "f2db830c78f46b2d"
+            ]
+        ]
+    },
+    {
+        "id": "f2db830c78f46b2d",
+        "type": "function",
+        "z": "9b6405ebaf43e8e4",
+        "name": "function 1",
+        "func": "const data = msg.payload\n\nconst values = [\n    {\n        \"dataPointId\": \"DP-serialNumber\",\n        \"qualityCode\": \"0\",\n        \"value\": `${data.serialNumber}`\n    },\n    {\n        \"dataPointId\": \"DP-headerId\",\n        \"qualityCode\": \"0\",\n        \"value\": `${data.headerId}`\n    },\n    {\n        \"dataPointId\": \"DP-connectionState\",\n        \"qualityCode\": \"0\",\n        \"value\": `${data.connectionState}`\n    },\n    {\n        \"dataPointId\": \"DP-onlineStatus\",\n        \"qualityCode\": \"0\",\n        \"value\": \"true\"\n    }\n];\nmsg._time = new Date();\nmsg.payload = values;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "f11da62005b52d84",
+                "44f719f914e285e8"
+            ]
+        ]
+    },
+    {
+        "id": "44f719f914e285e8",
+        "type": "mindconnect",
+        "z": "9b6405ebaf43e8e4",
+        "name": "AssetDemoComplete",
+        "configtype": "SHARED_SECRET",
+        "agentconfig": "",
+        "privatekey": "",
+        "model": "",
+        "validate": false,
+        "validateevent": false,
+        "chunk": false,
+        "disablekeepalive": false,
+        "emitcontrol": false,
+        "datalakeonly": false,
+        "supressverbosity": false,
+        "retry": 3,
+        "parallel": 1,
+        "asyncduration": 10,
+        "x": 700,
+        "y": 160,
+        "wires": [
+            [
+                "c2daae95bb4d2d6a"
+            ]
+        ]
+    },
+    {
+        "id": "c2daae95bb4d2d6a",
+        "type": "debug",
+        "z": "9b6405ebaf43e8e4",
+        "name": "debug 60",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "6e90c1391645bf5d",
+        "type": "s7 endpoint",
+        "d": true,
+        "transport": "iso-on-tcp",
+        "address": "<IP_PLC>",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": "2",
+        "cycletime": "1000",
+        "timeout": "2000",
+        "name": "PLC Connection",
+        "vartable": [
+            {
+                "addr": "<DB_ID>,<Type><Offset>",
+                "name": "<VarName>"
+            },
+            {
+                "addr": "DB2,S526.255",
+                "name": "serialNumber"
+            },
+            {
+                "addr": "DB2,I0",
+                "name": "temperatura"
+            }
+        ]
+    }
+]

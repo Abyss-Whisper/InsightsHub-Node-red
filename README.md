@@ -58,3 +58,4 @@ Agora, na sua esquerda são onde estão os seus nós. Procure pelo MindConnect:
 Agora, você pode escolher qual aplicação testar, se acordo com os links abaixo 😎😀:
 
 
+https://github.com/Abyss-Whisper/InsightsHub-Node-red/tree/main/Exemplo%20video%20MC%20LIib
